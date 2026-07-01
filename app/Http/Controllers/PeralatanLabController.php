@@ -22,7 +22,6 @@ class PeralatanLabController extends Controller
 
     /**
      * Halaman Dashboard Admin
-     * Ditambahkan latest() agar data riil yang baru Anda masukkan / edit langsung nangkring di baris paling atas!
      */
     public function dashboard() {
         $peralatan = PeralatanLab::latest()->get();
@@ -44,10 +43,18 @@ class PeralatanLabController extends Controller
 
         $input = $request->all();
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['gambar'] = "$profileImage";
+            
+            // Cek jika berjalan di Vercel (Production)
+            if (config('app.env') === 'production' || env('VERCEL') == '1') {
+                // Lewati move(), langsung set nama gambarnya agar masuk database
+                $input['gambar'] = $profileImage;
+            } else {
+                // Jalankan move() jika di laptop lokal (XAMPP)
+                $destinationPath = public_path('images/');
+                $image->move($destinationPath, $profileImage);
+                $input['gambar'] = "$profileImage";
+            }
         }
 
         PeralatanLab::create($input);
@@ -64,7 +71,7 @@ class PeralatanLabController extends Controller
     }
 
     /**
-     * KUNCI FIX UPDATE: Menangkap ID Alat dengan benar, memperbarui database, dan mengembalikan ke dashboard
+     * KUNCI FIX UPDATE
      */
     public function update(Request $request, $id) {
         $request->validate([
@@ -79,13 +86,20 @@ class PeralatanLabController extends Controller
         $input = $request->all();
 
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['gambar'] = "$profileImage";
             
-            if($alat->gambar && file_exists(public_path('images/'.$alat->gambar))) {
-                unlink(public_path('images/'.$alat->gambar));
+            // Cek jika berjalan di Vercel (Production)
+            if (config('app.env') === 'production' || env('VERCEL') == '1') {
+                $input['gambar'] = $profileImage;
+            } else {
+                // Simpan lokal & hapus gambar lama jika di lokal laptop
+                $destinationPath = public_path('images/');
+                $image->move($destinationPath, $profileImage);
+                $input['gambar'] = "$profileImage";
+                
+                if($alat->gambar && file_exists(public_path('images/'.$alat->gambar))) {
+                    @unlink(public_path('images/'.$alat->gambar));
+                }
             }
         } else {
             unset($input['gambar']);
@@ -97,15 +111,16 @@ class PeralatanLabController extends Controller
     }
 
     /**
-     * KUNCI FIX DELETE: Mencari 'id_alat', menghapus berkas gambarnya di folder public/images, 
-     * lalu menghapus record barisnya dari database secara permanen.
+     * KUNCI FIX DELETE
      */
     public function destroy($id) {
         $alat = PeralatanLab::where('id_alat', $id)->firstOrFail();
         
-        // Hapus file gambar fisik dari server agar storage tidak bengkak
-        if($alat->gambar && file_exists(public_path('images/'.$alat->gambar))) {
-            unlink(public_path('images/'.$alat->gambar));
+        // Hanya hapus file fisik dari lokal storage, gunakan @ agar tidak error di server online
+        if (config('app.env') !== 'production' && env('VERCEL') != '1') {
+            if($alat->gambar && file_exists(public_path('images/'.$alat->gambar))) {
+                @unlink(public_path('images/'.$alat->gambar));
+            }
         }
         
         $alat->delete();
