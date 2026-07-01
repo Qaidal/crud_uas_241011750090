@@ -65,7 +65,7 @@
                         <tr>
                             <td class="text-center fw-medium px-3">{{ $index + 1 }}</td>
                             <td class="text-center">
-                                <img src="/images/{{ $alat->gambar }}" class="rounded shadow-sm border" style="width: 60px; height: 45px; object-fit: cover;" alt="{{ $alat->nama_alat }}">
+                                <img src="{{ asset('images/' . $alat->gambar) }}" class="rounded shadow-sm border" style="width: 60px; height: 45px; object-fit: cover;" alt="{{ $alat->nama_alat }}">
                             </td>
                             <td class="fw-semibold text-primary">{{ $alat->nama_alat }}</td>
                             <td>{{ $alat->jenis }}</td>
@@ -88,53 +88,20 @@
                             </td>
                         </tr>
                         @empty
-                        
-                        @php
-                        $simulasi = [
-                            ['nama' => 'PC Gaming i7 Workstation', 'jenis' => 'Komputer Client', 'kondisi' => 'Baik', 'lokasi' => 'Lab Multimedia - Meja 04', 'img' => 'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=100'],
-                            ['nama' => 'MikroTik Cloud Router 1036', 'jenis' => 'Perangkat Jaringan', 'kondisi' => 'Baik', 'lokasi' => 'Ruang Server Pusat', 'img' => 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=100'],
-                            ['nama' => 'Projector Epson EB-X400', 'jenis' => 'Multimedia Display', 'kondisi' => 'Rusak Ringan', 'lokasi' => 'Gudang Inventaris B', 'img' => 'https://images.unsplash.com/photo-1535016120720-40c646be5580?w=100'],
-                            ['nama' => 'Arduino Uno R3 Starter Kit', 'jenis' => 'Modul Mikrokontroler', 'kondisi' => 'Baik', 'lokasi' => 'Lemari Lab IoT A-2', 'img' => 'https://images.unsplash.com/photo-1553406830-ef2513450d76?w=100'],
-                            ['nama' => 'Server Dell PowerEdge T440', 'jenis' => 'Infrastruktur Server', 'kondisi' => 'Baik', 'lokasi' => 'Ruang Rack Server 01', 'img' => 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=100'],
-                            ['nama' => 'Logitech HD Webcam C922 Pro', 'jenis' => 'Aksesoris Komputer', 'kondisi' => 'Baik', 'lokasi' => 'Meja Instruktur Lab 1', 'img' => 'https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=100'],
-                            ['nama' => 'Cisco Switch Catalyst 2960', 'jenis' => 'Perangkat Jaringan', 'kondisi' => 'Baik', 'lokasi' => 'Lab Jaringan - Rack B', 'img' => 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=100'],
-                            ['nama' => 'Raspberry Pi 4 Model B (8GB)', 'jenis' => 'Mini PC / Modul IoT', 'kondisi' => 'Rusak Ringan', 'lokasi' => 'Lemari Lab IoT A-3', 'img' => 'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=100'],
-                        ];
-                        @endphp
-
-                        @foreach($simulasi as $idx => $item)
                         <tr>
-                            <td class="text-center text-muted px-3">{{ $idx + 1 }}</td>
-                            <td class="text-center">
-                                <img src="{{ $item['img'] }}" class="rounded shadow-sm border" style="width: 60px; height: 45px; object-fit: cover;" alt="img">
-                            </td>
-                            <td class="fw-semibold text-secondary">
-                                {{ $item['nama'] }} 
-                                <span class="badge bg-secondary small ms-1" style="font-size: 10px; opacity: 0.7;">Simulasi</span>
-                            </td>
-                            <td>{{ $item['jenis'] }}</td>
-                            <td>
-                                <span class="badge rounded-pill px-2 py-1 {{ $item['kondisi'] == 'Baik' ? 'bg-success bg-opacity-10 text-success' : 'bg-warning bg-opacity-10 text-warning' }}">
-                                    {{ $item['kondisi'] }}
-                                </span>
-                            </td>
-                            <td class="text-muted small">{{ $item['lokasi'] }}</td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <button class="btn btn-sm btn-success px-3 py-1 fw-medium shadow-sm" onclick="alert('Klik tombol Add Data di atas terlebih dahulu untuk membuat data asli!')">Edit</button>
-                                    <button class="btn btn-sm btn-danger px-2 py-1 fw-medium shadow-sm" onclick="alert('Ini data tiruan template HTML, buat data asli lewat tombol Add Data untuk mencoba fungsi hapus.')">Delete</button>
-                                </div>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="bi bi-box-seam d-block fs-1 mb-3 text-secondary opacity-50"></i>
+                                <span class="fw-medium">Belum ada data peralatan lab asli di database.</span><br>
+                                <small class="text-secondary">Silakan jalankan seeder atau klik tombol <strong>Add Data</strong> di atas.</small>
                             </td>
                         </tr>
-                        @endforeach
-
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top text-muted small">
-                <div>Showing 1 to {{ count($peralatan) > 0 ? count($peralatan) : 8 }} of {{ count($peralatan) > 0 ? count($peralatan) : 8 }} entries</div>
+                <div>Showing {{ count($peralatan) > 0 ? '1 to ' . count($peralatan) : '0' }} of {{ count($peralatan) }} entries</div>
                 <div><span>© 2026 Panel Sistem Informasi Inventaris | Lab-Tech</span></div>
             </div>
 

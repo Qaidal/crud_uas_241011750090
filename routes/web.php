@@ -18,7 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // 3. RUTE BACKEND ADMIN (Wajib Login)
 Route::middleware('auth')->prefix('admin')->group(function () {
     // Berubah ke URL '/admin' untuk gerbang utama selamat datang (Fungsi: index)
-    Route::get('/', [PeralatanLabController::class, 'index'])->name('admin.index');
+    Route::get('/admin', [PeralatanLabController::class, 'index'])->name('admin.index');
     
     // Rute baru untuk Dashboard Katalog Data Lab (Fungsi: dashboard)
     Route::get('/dashboard', [PeralatanLabController::class, 'dashboard'])->name('admin.dashboard');
