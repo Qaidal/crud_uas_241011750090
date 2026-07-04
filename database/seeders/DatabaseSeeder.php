@@ -62,6 +62,14 @@ class DatabaseSeeder extends Seeder
                 'ras_spesies' => 'Lovebird',
                 'gambar' => 'chirpy.jpg'
             ],
+            [
+                'nama_hewan' => 'Mbappe',
+                'jenis' => 'Kura-Kura',
+                'usia' => 67,
+                'pemilik' => 'Adam Robertson',
+                'ras_spesies' => 'Sulcata Afrika',
+                'gambar' => 'mbappe.jpg'
+            ],
         ];
 
         foreach ($dataHewan as $hewan) {
