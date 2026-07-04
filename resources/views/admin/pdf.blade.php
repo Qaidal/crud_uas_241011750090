@@ -78,12 +78,12 @@
         .text-muted { color: #6c757d; }
         .small { font-size: 11px; }
         
-        /* Nama Alat Tebal & Biru sesuai Dashboard */
+        /* Tulisan Tebal & Pewarnaan */
         .fw-semibold { font-weight: bold; }
         .text-primary { color: #0d6efd; }
         .text-secondary { color: #495057; }
 
-        /* Badge Efek Opacity (Background Soft, Teks Pekat) */
+        /* Badge Soft Style */
         .badge {
             display: inline-block;
             padding: 4px 8px;
@@ -91,15 +91,10 @@
             font-weight: bold;
             border-radius: 50px; /* pill */
             text-align: center;
+            background-color: #e2e3e5;
+            color: #41464b;
         }
-        .badge-success {
-            background-color: #d1e7dd; /* bg-success bg-opacity-10 */
-            color: #0f5132;
-        }
-        .badge-warning {
-            background-color: #fff3cd; /* bg-warning bg-opacity-10 */
-            color: #664d03;
-        }
+        
         .badge-simulasi {
             background-color: #e2e3e5;
             color: #41464b;
@@ -132,57 +127,53 @@
 <body>
 
     <div class="panel-header">
-        <h5>Panel Manajemen Inventaris</h5>
-        <p>Home / Panel Admin / <span class="current-page">Data Peralatan Lab</span></p>
+        <h5>Panel Manajemen Data Hewan</h5>
+        <p>Home / Panel Admin / <span class="current-page">Data Hewan Peliharaan</span></p>
     </div>
 
-    <div class="card-title">Data Peralatan Terdaftar</div>
+    <div class="card-title">Data Hewan Terdaftar</div>
 
     <table>
         <thead>
             <tr>
                 <th class="text-center" style="width: 5%;">No</th>
                 <th class="text-center" style="width: 12%;">Gambar</th>
-                <th style="width: 25%;">Nama Alat</th>
-                <th style="width: 18%;">Jenis</th>
-                <th style="width: 15%;">Kondisi</th>
-                <th style="width: 25%;">Lokasi</th>
+                <th style="width: 20%;">Nama Hewan</th>
+                <th style="width: 15%;">Jenis</th>
+                <th style="width: 13%;">Usia</th>
+                <th style="width: 17%;">Pemilik</th>
+                <th style="width: 18%;">Ras / Spesies</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($peralatan as $index => $alat)
+            <!-- Loop data asli dari database ($hewan) -->
+            @forelse($hewan as $index => $pet)
                 <tr>
                     <td class="text-center fw-semibold text-muted">{{ $index + 1 }}</td>
                     <td class="text-center">
-                        @if($alat->gambar && file_exists(public_path('images/' . $alat->gambar)))
-                            <img src="{{ public_path('images/' . $alat->gambar) }}" class="img-container" alt="img">
+                        @if($pet->gambar && file_exists(public_path('images/' . $pet->gambar)))
+                            <img src="{{ public_path('images/' . $pet->gambar) }}" class="img-container" alt="img">
                         @else
                             <div class="img-container" style="line-height: 45px; font-size: 9px; color: #999;">No Image</div>
                         @endif
                     </td>
-                    <td class="fw-semibold text-primary">{{ $alat->nama_alat }}</td>
-                    <td>{{ $alat->jenis }}</td>
-                    <td>
-                        <span class="badge {{ $alat->kondisi == 'Baik' ? 'badge-success' : 'badge-warning' }}">
-                            {{ $alat->kondisi }}
-                        </span>
-                    </td>
-                    <td class="text-muted small">{{ $alat->lokasi }}</td>
+                    <td class="fw-semibold text-primary">{{ $pet->nama_hewan }}</td>
+                    <td>{{ $pet->jenis }}</td>
+                    <td>{{ $pet->usia }} Tahun</td>
+                    <td>{{ $pet->pemilik }}</td>
+                    <td><span class="badge">{{ $pet->ras_spesies }}</span></td>
                 </tr>
             @empty
                 @php
+                // Data simulasi fallback disesuaikan menjadi data hewan peliharaan
                 $simulasi = [
-                    ['nama' => 'PC Gaming i7 Workstation', 'jenis' => 'Komputer Client', 'kondisi' => 'Baik', 'lokasi' => 'Lab Multimedia - Meja 04'],
-                    ['nama' => 'MikroTik Cloud Router 1036', 'jenis' => 'Perangkat Jaringan', 'kondisi' => 'Baik', 'lokasi' => 'Ruang Server Pusat'],
-                    ['nama' => 'Projector Epson EB-X400', 'jenis' => 'Multimedia Display', 'kondisi' => 'Rusak Ringan', 'lokasi' => 'Gudang Inventaris B'],
-                    ['nama' => 'Arduino Uno R3 Starter Kit', 'jenis' => 'Modul Mikrokontroler', 'kondisi' => 'Baik', 'lokasi' => 'Lemari Lab IoT A-2'],
-                    ['nama' => 'Server Dell PowerEdge T440', 'jenis' => 'Infrastruktur Server', 'kondisi' => 'Baik', 'lokasi' => 'Ruang Rack Server 01'],
-                    ['nama' => 'Logitech HD Webcam C922 Pro', 'jenis' => 'Aksesoris Komputer', 'kondisi' => 'Baik', 'lokasi' => 'Meja Instruktur Lab 1'],
-                    ['nama' => 'Cisco Switch Catalyst 2960', 'jenis' => 'Perangkat Jaringan', 'kondisi' => 'Baik', 'lokasi' => 'Lab Jaringan - Rack B'],
-                    ['nama' => 'Raspberry Pi 4 Model B (8GB)', 'jenis' => 'Mini PC / Modul IoT', 'kondisi' => 'Rusak Ringan', 'lokasi' => 'Lemari Lab IoT A-3'],
+                    ['nama' => 'Milo', 'jenis' => 'Kucing', 'usia' => '2 Tahun', 'pemilik' => 'Andi Wijaya', 'ras' => 'Persia'],
+                    ['nama' => 'Rocky', 'jenis' => 'Anjing', 'usia' => '3 Tahun', 'pemilik' => 'Budi Santoso', 'ras' => 'Golden Retriever'],
+                    ['nama' => 'Snowy', 'jenis' => 'Kelinci', 'usia' => '1 Tahun', 'pemilik' => 'Citra Lestari', 'ras' => 'Anggora'],
+                    ['nama' => 'Bubbles', 'jenis' => 'Ikan', 'usia' => '1 Tahun', 'pemilik' => 'Dedi Kurniawan', 'ras' => 'Mas Koki'],
+                    ['nama' => 'Chirpy', 'jenis' => 'Burung', 'usia' => '2 Tahun', 'pemilik' => 'Eka Putri', 'ras' => 'Lovebird'],
                 ];
                 
-                // Menggunakan string base64 super minimalis bermotif kotak abu transparan agar kolom gambar tidak kosong melompong saat simulasi
                 $placeholderBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
                 @endphp
 
@@ -196,12 +187,9 @@
                         {{ $item['nama'] }} <span class="badge-simulasi">Simulasi</span>
                     </td>
                     <td>{{ $item['jenis'] }}</td>
-                    <td>
-                        <span class="badge {{ $item['kondisi'] == 'Baik' ? 'badge-success' : 'badge-warning' }}">
-                            {{ $item['kondisi'] }}
-                        </span>
-                    </td>
-                    <td class="text-muted small">{{ $item['lokasi'] }}</td>
+                    <td>{{ $item['usia'] }}</td>
+                    <td>{{ $item['pemilik'] }}</td>
+                    <td><span class="badge">{{ $item['ras'] }}</span></td>
                 </tr>
                 @endforeach
             @endforelse
@@ -209,8 +197,8 @@
     </table>
 
     <div class="table-footer">
-        <div class="footer-left">Showing 1 to {{ count($peralatan) > 0 ? count($peralatan) : 8 }} of {{ count($peralatan) > 0 ? count($peralatan) : 8 }} entries</div>
-        <div class="footer-right">© 2026 Panel Sistem Informasi Inventaris | Lab-Tech</div>
+        <div class="footer-left">Showing 1 to {{ count($hewan) > 0 ? count($hewan) : count($simulasi) }} of {{ count($hewan) > 0 ? count($hewan) : count($simulasi) }} entries</div>
+        <div class="footer-right">© 2026 Panel Sistem Informasi Manajemen | Pet Care</div>
     </div>
 
 </body>

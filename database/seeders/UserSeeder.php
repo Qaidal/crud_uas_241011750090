@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     {
         // Menggunakan updateOrCreate agar terhindar dari error duplicate entry jika di-seed ulang
         User::updateOrCreate(
-            ['email' => 'admin@lab.com'], // Tolok ukur pengecekan berdasarkan email
+            ['email' => 'admin@petcare.com'],
             [
-                'name' => 'Admin Lab',
-                'password' => Hash::make('password'), // Disamakan dengan petunjuk demo login Anda
+                'name' => 'Admin Pet Care',
+                'password' => Hash::make('password'), // Tetap menggunakan password default untuk login
             ]
         );
     }

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\PeralatanLab; 
+use App\Models\HewanPeliharaan; // Pastikan model ini sudah dibuat
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,82 +13,67 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Buat Akun Admin Default
         User::updateOrCreate(
-            ['email' => 'admin@lab.com'],
+            ['email' => 'admin@petcare.com'],
             [
-                'name' => 'Administrator',
+                'name' => 'Admin Pet Care',
                 'password' => Hash::make('password'),
             ]
         );
 
-        // 2. Buat Data Peralatan Lab Asli ke Database
-        $dataPeralatan = [
+        // 2. Buat Data Hewan Peliharaan ke Database
+        $dataHewan = [
             [
-                'nama_alat' => 'PC Gaming i7 Workstation',
-                'jenis' => 'Komputer Client',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Lab Multimedia - Meja 04',
-                'gambar' => 'pc.jpg'
+                'nama_hewan' => 'Milo',
+                'jenis' => 'Kucing',
+                'usia' => 2,
+                'pemilik' => 'Andi Wijaya',
+                'ras_spesies' => 'Persia',
+                'gambar' => 'milo.jpg'
             ],
             [
-                'nama_alat' => 'MikroTik Cloud Router 1036',
-                'jenis' => 'Perangkat Jaringan',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Ruang Server Pusat',
-                'gambar' => 'mikrotik.jpg'
+                'nama_hewan' => 'Rocky',
+                'jenis' => 'Anjing',
+                'usia' => 3,
+                'pemilik' => 'Budi Santoso',
+                'ras_spesies' => 'Golden Retriever',
+                'gambar' => 'rocky.jpg'
             ],
             [
-                'nama_alat' => 'Projector Epson EB-X400',
-                'jenis' => 'Multimedia Display',
-                'kondisi' => 'Rusak Ringan',
-                'lokasi' => 'Gudang Inventaris B',
-                'gambar' => 'epson.jpg'
+                'nama_hewan' => 'Snowy',
+                'jenis' => 'Kelinci',
+                'usia' => 1,
+                'pemilik' => 'Citra Lestari',
+                'ras_spesies' => 'Anggora',
+                'gambar' => 'snowy.jpg'
             ],
             [
-                'nama_alat' => 'Arduino Uno R3 Starter Kit',
-                'jenis' => 'Modul Mikrokontroler',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Lemari Lab IoT A-2',
-                'gambar' => 'arduino.jpg'
+                'nama_hewan' => 'Bubbles',
+                'jenis' => 'Ikan',
+                'usia' => 1,
+                'pemilik' => 'Dedi Kurniawan',
+                'ras_spesies' => 'Mas Koki',
+                'gambar' => 'bubbles.jpg'
             ],
             [
-                'nama_alat' => 'Server Dell PowerEdge T440',
-                'jenis' => 'Infrastruktur Server',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Ruang Rack Server 01',
-                'gambar' => 'serverdell.jpg'
-            ],
-            [
-                'nama_alat' => 'Logitech HD Webcam C922 Pro',
-                'jenis' => 'Aksesoris Komputer',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Meja Instruktur Lab 1',
-                'gambar' => 'logitech.jpg'
-            ],
-            [
-                'nama_alat' => 'Cisco Switch Catalyst 2960',
-                'jenis' => 'Perangkat Jaringan',
-                'kondisi' => 'Baik',
-                'lokasi' => 'Lab Jaringan - Rack B',
-                'gambar' => 'cisco.jpg'
-            ],
-            [
-                'nama_alat' => 'Raspberry Pi 4 Model B (8GB)',
-                'jenis' => 'Mini PC / Modul IoT',
-                'kondisi' => 'Rusak Ringan',
-                'lokasi' => 'Lemari Lab IoT A-3',
-                'gambar' => 'raspberry.jpg'
+                'nama_hewan' => 'Chirpy',
+                'jenis' => 'Burung',
+                'usia' => 2,
+                'pemilik' => 'Eka Putri',
+                'ras_spesies' => 'Lovebird',
+                'gambar' => 'chirpy.jpg'
             ],
         ];
 
-        foreach ($dataPeralatan as $alat) {
-            // UBAH JUGA DI SINI (Menggunakan PeralatanLab)
-            PeralatanLab::updateOrCreate(
-                ['nama_alat' => $alat['nama_alat']],
+        foreach ($dataHewan as $hewan) {
+            // Menggunakan updateOrCreate agar data tidak duplikat saat seeder dijalankan ulang
+            HewanPeliharaan::updateOrCreate(
+                ['nama_hewan' => $hewan['nama_hewan']],
                 [
-                    'jenis' => $alat['jenis'],
-                    'kondisi' => $alat['kondisi'],
-                    'lokasi' => $alat['lokasi'],
-                    'gambar' => $alat['gambar'],
+                    'jenis' => $hewan['jenis'],
+                    'usia' => $hewan['usia'],
+                    'pemilik' => $hewan['pemilik'],
+                    'ras_spesies' => $hewan['ras_spesies'],
+                    'gambar' => $hewan['gambar'],
                 ]
             );
         }

@@ -34,7 +34,7 @@
 
             <div class="text-center">
                 <p class="text-muted small mb-0" style="font-size: 13px; letter-spacing: 0.3px;">
-                    Demo Login : <span class="fw-semibold text-dark">admin@lab.com</span> / <span class="fw-semibold text-dark">password</span>
+                    Demo Login : <span class="fw-semibold text-dark">admin@petcare.com</span> / <span class="fw-semibold text-dark">password</span>
                 </p>
             </div>
 

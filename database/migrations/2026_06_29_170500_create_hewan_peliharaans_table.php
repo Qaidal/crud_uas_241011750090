@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peralatan_labs', function (Blueprint $table) {
-            $table->id('id_alat'); // ID Alat sebagai Primary Key
+        Schema::create('hewan_peliharaans', function (Blueprint $table) {
+            $table->id('id_hewan'); // ID Hewan sebagai Primary Key sesuai struktur lamamu
             $table->string('gambar')->nullable();
-            $table->string('nama_alat');
+            $table->string('nama_hewan');
             $table->string('jenis');
-            $table->string('kondisi');
-            $table->string('lokasi');
+            $table->integer('usia'); // Menggunakan integer untuk angka usia
+            $table->string('pemilik');
+            $table->string('ras_spesies');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('peralatan_labs');
+        Schema::dropIfExists('hewan_peliharaans');
     }
 };
