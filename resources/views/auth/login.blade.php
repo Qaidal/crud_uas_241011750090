@@ -19,7 +19,7 @@
                 
                 <div class="mb-3">
                     <label for="email" class="form-label small fw-medium text-secondary">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="admin@lab.com" value="{{ old('email') }}" required autofocus>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="admin@lpetcare.com" value="{{ old('email') }}" required autofocus>
                 </div>
 
                 <div class="mb-4">
