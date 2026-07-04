@@ -109,7 +109,7 @@
 
             <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top text-muted small">
                 <div>Showing {{ count($hewan) > 0 ? '1 to ' . count($hewan) : '0' }} of {{ count($hewan) }} entries</div>
-                <div><span>© 2026 Panel Sistem Informasi Manajemen | Pet Care</span></div>
+                <div><span>© 2026 Panel Sistem Informasi | Pet Care</span></div>
             </div>
 
         </div>

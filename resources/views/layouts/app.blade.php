@@ -44,7 +44,7 @@
             <!-- Identitas UAS Anda tetap dipertahankan demi penilaian dosen -->
             <h5 class="fw-bold text-white mb-1">UAS-241011750090-QAIDAL.PET</h5>
             <!-- Mengubah teks keterangan operasional inventaris -->
-            <p class="small mb-0 text-secondary">Sistem Informasi Manajemen Data Hewan Peliharaan &copy; 2026</p>
+            <p class="small mb-0 text-secondary">Sistem Informasi Data Hewan Peliharaan &copy; 2026</p>
         </div>
     </footer>
 

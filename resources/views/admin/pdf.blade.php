@@ -198,7 +198,7 @@
 
     <div class="table-footer">
         <div class="footer-left">Showing 1 to {{ count($hewan) > 0 ? count($hewan) : count($simulasi) }} of {{ count($hewan) > 0 ? count($hewan) : count($simulasi) }} entries</div>
-        <div class="footer-right">© 2026 Panel Sistem Informasi Manajemen | Pet Care</div>
+        <div class="footer-right">© 2026 Panel Sistem Informasi | Pet Care</div>
     </div>
 
 </body>
